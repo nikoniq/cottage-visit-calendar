@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactElement } from 'react';
 import {
   AlertTriangle,
   Ban,
@@ -29,6 +29,34 @@ import {
   toISODate,
 } from '@/lib/utils';
 import { END_DATE, START_DATE } from '@/lib/constants';
+
+import type { ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, LabelHTMLAttributes } from 'react';
+
+function cn(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ');
+}
+
+function Button({ className, variant = 'default', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'default' | 'outline' | 'destructive' }) {
+  const variantClass =
+    variant === 'outline'
+      ? 'border border-slate-300 bg-white text-slate-900 hover:bg-slate-50'
+      : variant === 'destructive'
+        ? 'bg-rose-600 text-white hover:bg-rose-700'
+        : 'bg-slate-900 text-white hover:bg-slate-700';
+  return <button className={cn('inline-flex items-center justify-center text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-60', variantClass, className)} {...props} />;
+}
+
+function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
+  return <input className={cn('w-full border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-slate-400', className)} {...props} />;
+}
+
+function Label({ className, ...props }: LabelHTMLAttributes<HTMLLabelElement>) {
+  return <label className={cn('text-sm font-medium text-slate-700', className)} {...props} />;
+}
+
+function Badge({ className, ...props }: HTMLAttributes<HTMLSpanElement>) {
+  return <span className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium', className)} {...props} />;
+}
 
 type Props = {
   initialBookings: Booking[];
@@ -77,7 +105,7 @@ function CalendarMonth({ monthDate, bookings }: { monthDate: Date; bookings: Boo
   const totalDays = lastDay.getDate();
   const startDate = new Date(START_DATE);
   const endDate = new Date(END_DATE);
-  const cells: JSX.Element[] = [];
+  const cells: ReactElement[] = [];
 
   for (let i = 0; i < firstWeekday; i += 1) {
     cells.push(<div key={`empty-${i}`} className="h-20 rounded-2xl border border-transparent p-2" />);
