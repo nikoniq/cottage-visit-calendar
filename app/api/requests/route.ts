@@ -6,7 +6,7 @@ import { END_DATE, START_DATE } from '@/lib/constants';
 export async function GET() {
   try {
     const supabase = createServerSupabase();
-    const { data, error } = await supabase.from('bookings').select('*').order('arrival', { ascending: true });
+    const { data, error } = await supabase.from('visit_requests').select('*').order('arrival', { ascending: true });
     if (error) throw error;
     return NextResponse.json({ bookings: data ?? [] });
   } catch (error) {
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     const supabase = createServerSupabase();
     const { data, error } = await supabase
-      .from('bookings')
+      .from('visit_requests')
       .insert({ name, email, phone, arrival, departure, guests, notes, status: 'requested' })
       .select('*')
       .single();

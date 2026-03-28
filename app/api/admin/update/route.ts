@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = createServerSupabase();
-    const { error } = await supabase.from('bookings').update({ status }).eq('id', id);
+    const { error } = await supabase.from('visit_requests').update({ status }).eq('id', id);
     if (error) throw error;
 
     return NextResponse.json({ ok: true });

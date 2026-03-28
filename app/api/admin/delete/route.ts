@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = createServerSupabase();
-    const { error } = await supabase.from('bookings').delete().eq('id', id);
+    const { error } = await supabase.from('visit_requests').delete().eq('id', id);
     if (error) throw error;
 
     return NextResponse.json({ ok: true });

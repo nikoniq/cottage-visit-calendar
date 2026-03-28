@@ -10,7 +10,7 @@ export default async function Page() {
   try {
     const supabase = createServerSupabase();
     const { data } = await supabase
-      .from('bookings')
+      .from('visit_requests')
       .select('*')
       .order('arrival', { ascending: true });
 
@@ -22,7 +22,7 @@ export default async function Page() {
   return (
     <CottageVisitCalendarClient
       initialBookings={initialBookings}
-      sharedPassword={process.env.NEXT_PUBLIC_SHARED_PASSWORD ?? 'cottage2026'}
+      sharedPassword={process.env.SITE_PASSWORD ?? 'cottage2026'}
       adminPassword={process.env.ADMIN_PASSWORD ?? 'admin2026'}
     />
   );
