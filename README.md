@@ -66,3 +66,7 @@ See `.env.example`.
 
 ## Vercel build setting safety
 If your Vercel project was previously configured with a static output directory (for example `public`), this repo now includes `vercel.json` to force Next.js settings (`framework: nextjs`, output `.next`). This prevents the common error: `No Output Directory named "public" found`.
+- The admin area is unlocked by a separate password inside the app.
+- Google Calendar sync can be added after initial deployment.
+
+So i think if you update files then it redoes.... 

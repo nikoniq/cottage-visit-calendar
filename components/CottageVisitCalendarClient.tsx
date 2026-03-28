@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState, type ReactElement } from 'react';
+import React, { useMemo, useState, type ReactNode } from 'react';
 import {
   AlertTriangle,
   Ban,
@@ -64,6 +65,29 @@ type Props = {
   adminPassword: string;
 };
 
+
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: 'default' | 'outline' | 'destructive';
+};
+
+function Button({ className = '', variant = 'default', type = 'button', ...props }: ButtonProps) {
+  const variantClass =
+    variant === 'outline'
+      ? 'border border-slate-300 bg-white text-slate-900 hover:bg-slate-50'
+      : variant === 'destructive'
+        ? 'bg-rose-600 text-white hover:bg-rose-700'
+        : 'bg-slate-900 text-white hover:bg-slate-800';
+  return <button type={type} className={`inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium transition ${variantClass} disabled:cursor-not-allowed disabled:opacity-50 ${className}`} {...props} />;
+}
+
+function Input({ className = '', ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input className={`w-full border border-slate-200 bg-white px-3 text-sm outline-none ring-0 focus:border-slate-400 ${className}`} {...props} />;
+}
+
+function Label({ className = '', ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return <label className={`text-sm font-medium text-slate-700 ${className}`} {...props} />;
+}
+
 function statusMeta(status: 'requested' | 'unavailable' | 'available') {
   if (status === 'requested') {
     return {
@@ -106,6 +130,7 @@ function CalendarMonth({ monthDate, bookings }: { monthDate: Date; bookings: Boo
   const startDate = new Date(START_DATE);
   const endDate = new Date(END_DATE);
   const cells: ReactElement[] = [];
+  const cells: ReactNode[] = [];
 
   for (let i = 0; i < firstWeekday; i += 1) {
     cells.push(<div key={`empty-${i}`} className="h-20 rounded-2xl border border-transparent p-2" />);
