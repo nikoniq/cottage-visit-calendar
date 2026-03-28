@@ -29,3 +29,5 @@ See `.env.example`.
 - The guest-facing page never shows names.
 - The admin area is unlocked by a separate password inside the app.
 - Google Calendar sync can be added after initial deployment.
+
+So i think if you update files then it redoes.... 
